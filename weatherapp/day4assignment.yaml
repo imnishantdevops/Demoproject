@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: weather-pod
 spec:
-  replicas: 1
+  replicas: 2  # Adjust replicas to 2 to ensure no more than two instances per node
   selector:
     matchLabels:
       app: weather-pod
@@ -39,25 +39,23 @@ spec:
         ports:
         - containerPort: 7878
       tolerations:
-      - key: "app"
+      - key: "weather-app"
         operator: "Equal"
-        value: "weather-pod"
+        value: "true"
         effect: "NoSchedule" # This prevents other pods from being scheduled on the nodes with this taint
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: weather-node # <node-label> with the label of your reserved nodes
+              - key: node-role.kubernetes.io/master  # Assuming master nodes are not being used
+                operator: DoesNotExist  # This ensures that nodes with this label are not considered
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
                 operator: In
                 values:
-                - "true" # <node-label-value> with the value of your reserved nodes
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: app
-              operator: In
-              values:
-              - weather-pod
-          topologyKey: "kubernetes.io/hostname" # This ensures that pods are not scheduled on nodes already containing a weather-pod
+                - weather-pod
+            topologyKey: "kubernetes.io/hostname" # This ensures that pods are not scheduled on nodes already containing a weather-pod
