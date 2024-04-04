@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-pod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-pod
+  template:
+    metadata:
+      labels:
+        app: weather-pod
+    spec:
+      containers:
+      - name: weather-pod
+        image: nishant2081/k123s:latest
+        env:
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: weather-api-secret
+              key: api-key
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: weather-api-config
+              key: weatherUrl
+        - name: Forecast_URL
+          valueFrom:
+            configMapKeyRef:
+              name: weather-api-config
+              key: forecastUrl
+        - name: HOST
+          valueFrom:
+            configMapKeyRef:
+              name: weather-api-config
+              key: HOST
+        ports:
+        - containerPort: 7878
+      tolerations:
+      - key: "app"
+        operator: "Equal"
+        value: "weather-pod"
+        effect: "NoSchedule" # This prevents other pods from being scheduled on the nodes with this taint
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: weather-node # <node-label> with the label of your reserved nodes
+                operator: In
+                values:
+                - "true" # <node-label-value> with the value of your reserved nodes
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: app
+              operator: In
+              values:
+              - weather-pod
+          topologyKey: "kubernetes.io/hostname" # This ensures that pods are not scheduled on nodes already containing a weather-pod
