@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: weather-pod
 spec:
-  replicas: 2  # Adjust replicas to 2 to ensure no more than two instances per node
+  replicas: 2 
   selector:
     matchLabels:
       app: weather-pod
@@ -42,14 +42,14 @@ spec:
       - key: "weather-app"
         operator: "Equal"
         value: "true"
-        effect: "NoSchedule" # This prevents other pods from being scheduled on the nodes with this taint
+        effect: "NoSchedule" 
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
-              - key: node-role.kubernetes.io/master  # Assuming master nodes are not being used
-                operator: DoesNotExist  # This ensures that nodes with this label are not considered
+              - key: node-role.kubernetes.io/master  
+                operator: DoesNotExist 
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
@@ -58,4 +58,4 @@ spec:
                 operator: In
                 values:
                 - weather-pod
-            topologyKey: "kubernetes.io/hostname" # This ensures that pods are not scheduled on nodes already containing a weather-pod
+            topologyKey: "kubernetes.io/hostname" 
