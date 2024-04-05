@@ -25,6 +25,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
+        working-directory: ./path/to/your/project
         run: npm ci
 
       - name: Build Docker Image
