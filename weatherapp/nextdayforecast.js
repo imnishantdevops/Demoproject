@@ -3,7 +3,7 @@ const app = express();
 const axios = require('axios');
 require('dotenv').config();
 
-const API_KEY = process.env.apikey;
+const API_KEY = process.env.APIKEY;
 const port = process.env.PORT; // Corrected to use PORT
 
 // Define a route for the root path of the application
