@@ -25,7 +25,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        working-directory: ./path/to/your/project
+        working-directory: HelloworldExpress
         run: npm ci
 
       - name: Log in to Docker Hub
