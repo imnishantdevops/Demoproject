@@ -14,9 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
       with:
-        repository: imnishantdevops/demoproject  # Specify the repository owned by imnishantdevops
+        repository: imnishantdevops/demoproject
         path: demoproject   # Specify the directory path within the repository
 
     - name: Use Node.js
@@ -25,7 +26,7 @@ jobs:
         node-version: '14'
 
     - name: Navigate to project directory
-      run: cd demoproject/weatherapp   # Navigate to the weatherapp directory
+      run: cd demoproject/weatherapp
 
     - name: Install dependencies
       run: npm install
