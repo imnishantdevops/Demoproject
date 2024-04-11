@@ -26,7 +26,6 @@ jobs:
 
     - name: Navigate to project directory
       run: cd weatherapp
-      working-directory: weatherapp
 
     - name: Install dependencies
       run: npm install
