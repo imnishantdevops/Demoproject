@@ -24,19 +24,20 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Navigate to project directory
-      run: cd weatherapp
-
     - name: Install dependencies
       run: npm install
+      working-directory: ./weatherapp
 
     - name: Run tests
       run: npm test
+      working-directory: ./weatherapp
 
     - name: Build
       run: npm run build
+      working-directory: ./weatherapp
 
     - name: Deploy
       run: |
         # Your deployment steps here, e.g., deploying to a hosting service like Heroku or AWS
         echo "Deploying the application..."
+      working-directory: ./weatherapp
