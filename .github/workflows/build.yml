@@ -1,4 +1,4 @@
-name: app.js CI
+name: Node.js CI
 
 on:
   push:
@@ -16,21 +16,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Use app.js
+    - name: Use Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '14'
 
     - name: Install dependencies
       run: npm install
+      working-directory: demoproject   # Navigate to the demoproject directory
 
     - name: Run tests
       run: npm test
+      working-directory: demoproject   # Navigate to the demoproject directory
 
     - name: Build
       run: npm run build
+      working-directory: demoproject   # Navigate to the demoproject directory
 
     - name: Deploy
       run: |
         # Your deployment steps here, e.g., deploying to a hosting service like Heroku or AWS
         echo "Deploying the application..."
+      working-directory: demoproject   # Navigate to the demoproject directory
