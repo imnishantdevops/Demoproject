@@ -11,6 +11,7 @@ env:
   Forecast_URL: weather-api-config
   HOST: weather-api-config
 service:
+  type: NodePort
   port: 7878
 tolerations:
   - key: "weather-app"
