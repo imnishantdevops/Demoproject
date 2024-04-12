@@ -2,9 +2,9 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "chart.fullname" . }}
+  name: {{ include "weather-pod.fullname" . }}
   labels:
-    {{- include "chart.labels" . | nindent 4 }}
+    {{- include "weather-pod.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
