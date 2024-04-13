@@ -4,3 +4,4 @@ resources:
 - gotk-components.yaml
 - gotk-sync.yaml
 - weather-helm-release.yaml
+- weather-source.yaml
