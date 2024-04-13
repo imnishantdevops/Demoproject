@@ -6,7 +6,7 @@ metadata:
 spec:
   releaseName: weather-pod
   chart:
-    repository: https://github.com/imnishantdevops/demoproject
+    repository: demoproject
     name: weatherapp
     version: 0.1.0
   values:
