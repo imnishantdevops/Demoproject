@@ -1,9 +1,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: weather-pod-repo
+  name: demoproject
   namespace: flux-system
 spec:
-  url: https://github.com/imnishantdevops/demoproject/tree/main/weatherapp/chart
   interval: 5m
   url: https://charts.bitnami.com/bitnami
