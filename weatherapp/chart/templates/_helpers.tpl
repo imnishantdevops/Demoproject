@@ -62,6 +62,6 @@ Create the name of the service account to use
 {{- end }}
 
 {{/* Define a fullname template to generate resource names */}}
-{{- define "weather-pod.fullname" -}}
+{{- define "chart.fullname" -}}
 {{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
